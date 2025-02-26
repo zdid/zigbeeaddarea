@@ -1,0 +1,27 @@
+
+
+services: 
+  arexx2hass:
+    image: zdid2/zigbeeaddarea:${VERSION}
+    container_name: zigbeeaddarea
+    network_mode: host
+    privileged: true
+    build: 
+      context: .
+      platforms:
+        - "linux/amd64"
+        - "linux/arm64" 
+        - "linux/armhf"
+    volumes:
+      - ../config:/app/data
+    environment:
+      MQTT_SERVER: mqtt://localhost:1883
+      #MQTT_USERNAME: 
+      #MQTT_PASSWORD:
+      MQTT_IN_PREFIX: 'homeassist/'
+      MQTT_OUT_PREFIX: 'homeassistant/' 
+      TZ: Europe/Paris
+    restart: unless-stopped 
+    #devices:
+      #- /dev/ttyUSB0:/dev/ttyUSB0
+
